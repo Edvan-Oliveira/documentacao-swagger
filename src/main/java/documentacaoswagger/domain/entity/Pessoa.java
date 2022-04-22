@@ -20,4 +20,5 @@ public class Pessoa {
     private String email;
     private String sexo;
     private LocalDate dataNascimento;
+    private String senha;
 }
