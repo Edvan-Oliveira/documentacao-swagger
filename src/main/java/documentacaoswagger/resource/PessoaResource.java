@@ -18,6 +18,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 import static org.springframework.http.HttpStatus.*;
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @Api(tags = "Gerenciador de Pessoa")
 @RequiredArgsConstructor
@@ -32,7 +33,7 @@ public class PessoaResource {
 
     @ApiOperation("Cadastrar uma nova pessoa")
     @ApiResponses(@ApiResponse(responseCode = "201", description = "Pessoa cadastrada com sucesso"))
-    @PostMapping
+    @PostMapping(produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(CREATED)
     public PessoaGetResponse cadastrar(@Valid @RequestBody PessoaPostRequest pessoaPostRequest) {
         Pessoa pessoa = pessoaMapper.converterParaPessoa(pessoaPostRequest);
@@ -41,7 +42,7 @@ public class PessoaResource {
 
     @ApiOperation("Atualizar uma pessoa já cadastrada")
     @ApiResponses(@ApiResponse(responseCode = "200", description = "Pessoa atualizada com sucesso"))
-    @PutMapping(URL_ID)
+    @PutMapping(value = URL_ID, produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(OK)
     public PessoaGetResponse atualizar(@PathVariable Integer id,
                                        @Valid @RequestBody PessoaPutRequest pessoaPutRequest) {
@@ -52,7 +53,7 @@ public class PessoaResource {
 
     @ApiOperation("Buscar uma pessoa pelo seu ID")
     @ApiResponses(@ApiResponse(responseCode = "200", description = "Pessoa encontrada com sucesso"))
-    @GetMapping(URL_ID)
+    @GetMapping(value = URL_ID, produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(OK)
     public PessoaGetResponse buscarPorId(@PathVariable Integer id) {
         return pessoaMapper.converterParaPessoaGetResponse(pessoaService.buscarPorId(id));
@@ -60,7 +61,7 @@ public class PessoaResource {
 
     @ApiOperation("Listar todas as pessoas cadastradas")
     @ApiResponses(@ApiResponse(responseCode = "200", description = "Listagem de pessoas realizada com sucesso"))
-    @GetMapping
+    @GetMapping(produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(OK)
     public List<PessoaGetResponse> listar() {
         return pessoaMapper.converterParaListaPessoaGetResponse(pessoaService.listar());
