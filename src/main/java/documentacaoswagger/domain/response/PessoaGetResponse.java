@@ -1,5 +1,6 @@
 package documentacaoswagger.domain.response;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,5 +13,6 @@ public class PessoaGetResponse {
     private String nome;
     private String email;
     private String sexo;
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataNascimento;
 }

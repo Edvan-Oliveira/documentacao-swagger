@@ -9,6 +9,7 @@ import documentacaoswagger.service.PessoaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 import static org.springframework.http.HttpStatus.*;
@@ -25,14 +26,15 @@ public class PessoaResource {
 
     @PostMapping
     @ResponseStatus(CREATED)
-    public PessoaGetResponse cadastrar(@RequestBody PessoaPostRequest pessoaPostRequest) {
+    public PessoaGetResponse cadastrar(@Valid @RequestBody PessoaPostRequest pessoaPostRequest) {
         Pessoa pessoa = pessoaMapper.converterParaPessoa(pessoaPostRequest);
         return pessoaMapper.converterParaPessoaGetResponse(pessoaService.cadastrar(pessoa));
     }
 
     @PutMapping(URL_ID)
     @ResponseStatus(OK)
-    public PessoaGetResponse atualizar(@PathVariable Integer id, @RequestBody PessoaPutRequest pessoaPutRequest) {
+    public PessoaGetResponse atualizar(@PathVariable Integer id,
+                                       @Valid @RequestBody PessoaPutRequest pessoaPutRequest) {
         pessoaPutRequest.setId(id);
         Pessoa pessoa = pessoaMapper.converterParaPessoa(pessoaPutRequest);
         return pessoaMapper.converterParaPessoaGetResponse(pessoaService.atualizar(pessoa));
