@@ -1,14 +1,17 @@
-package documentacaoswagger;
+package documentacaoswagger.config;
 
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfoHandlerMapping;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
+import springfox.documentation.builders.ResponseBuilder;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
+import springfox.documentation.service.Response;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.service.RequestHandlerProvider;
 import springfox.documentation.spring.web.WebMvcRequestHandler;
@@ -36,12 +39,16 @@ public class SpringFoxConfig {
                 .paths(PathSelectors.ant("/api-documentacao/**"))
                 .build()
                 .apiInfo(apiInfo())
-                ;
+                .useDefaultResponseMessages(false)
+                .globalResponses(HttpMethod.GET, obterRespostasInsucessos())
+                .globalResponses(HttpMethod.POST, obterRespostasInsucessos())
+                .globalResponses(HttpMethod.PUT, obterRespostasInsucessos())
+                .globalResponses(HttpMethod.DELETE, obterRespostasInsucessos());
     }
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("API de um CRUD documentado")
+                .title("API documentada de um CRUD")
                 .description("API com objetivo de demonstrar a documentação utilizando o Swagger")
                 .version("1.0")
                 .contact(contact())
@@ -53,6 +60,14 @@ public class SpringFoxConfig {
                 "Edvan Oliveira",
                 "https://github.com/Edvan-Oliveira",
                 "edvan.oliveiract@gmail.com"
+        );
+    }
+
+    private List<Response> obterRespostasInsucessos() {
+        return List.of(
+                new ResponseBuilder().code("400").description("Envio de dados incorretos").build(),
+                new ResponseBuilder().code("405").description("A URL não suporta esse método HTPP").build(),
+                new ResponseBuilder().code("500").description("Houve uma exceção no servidor").build()
         );
     }
 
