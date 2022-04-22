@@ -48,7 +48,7 @@ public class SpringFoxConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("API documentada de um CRUD")
+                .title("Documentação Swagger")
                 .description("API com objetivo de demonstrar a documentação utilizando o Swagger")
                 .version("1.0")
                 .contact(contact())
@@ -66,7 +66,6 @@ public class SpringFoxConfig {
     private List<Response> obterRespostasInsucessos() {
         return List.of(
                 new ResponseBuilder().code("400").description("Envio de dados incorretos").build(),
-                new ResponseBuilder().code("405").description("A URL não suporta esse método HTPP").build(),
                 new ResponseBuilder().code("500").description("Houve uma exceção no servidor").build()
         );
     }
