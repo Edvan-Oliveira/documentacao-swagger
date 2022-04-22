@@ -5,6 +5,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfoHandlerMapping;
+import springfox.documentation.builders.ApiInfoBuilder;
+import springfox.documentation.builders.PathSelectors;
+import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.service.RequestHandlerProvider;
 import springfox.documentation.spring.web.WebMvcRequestHandler;
@@ -27,7 +31,29 @@ public class SpringFoxConfig {
 
     @Bean
     public Docket docket() {
-        return new Docket(DocumentationType.SWAGGER_2);
+        return new Docket(DocumentationType.SWAGGER_2)
+                .select()
+                .paths(PathSelectors.ant("/api-documentacao/**"))
+                .build()
+                .apiInfo(apiInfo())
+                ;
+    }
+
+    private ApiInfo apiInfo() {
+        return new ApiInfoBuilder()
+                .title("API de um CRUD documentado")
+                .description("API com objetivo de demonstrar a documentação utilizando o Swagger")
+                .version("1.0")
+                .contact(contact())
+                .build();
+    }
+
+    private Contact contact() {
+        return new Contact(
+                "Edvan Oliveira",
+                "https://github.com/Edvan-Oliveira",
+                "edvan.oliveiract@gmail.com"
+        );
     }
 
     //  Spring Boot > 2.6.0
