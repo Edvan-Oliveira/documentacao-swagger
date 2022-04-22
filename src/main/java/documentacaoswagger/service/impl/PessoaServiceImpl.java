@@ -45,6 +45,13 @@ public class PessoaServiceImpl implements PessoaService {
         pessoaRepository.delete(buscarPorId(id));
     }
 
+    @Override
+    public void atualizarSenha(Pessoa pessoa) {
+        Pessoa pessoaSalva = buscarPorId(pessoa.getId());
+        pessoaSalva.setSenha(pessoa.getSenha());
+        pessoaRepository.save(pessoaSalva);
+    }
+
     private void validarEmailExistente(Pessoa pessoa) {
         Optional<Pessoa> busca = pessoaRepository.findByEmail(pessoa.getEmail());
         if (busca.isPresent() && !busca.get().getId().equals(pessoa.getId()))

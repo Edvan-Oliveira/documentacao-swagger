@@ -1,6 +1,7 @@
 package documentacaoswagger.domain.mapper;
 
 import documentacaoswagger.domain.entity.Pessoa;
+import documentacaoswagger.domain.request.AtualizaSenhaPessoaRequest;
 import documentacaoswagger.domain.request.PessoaPostRequest;
 import documentacaoswagger.domain.request.PessoaPutRequest;
 import documentacaoswagger.domain.response.PessoaGetResponse;
@@ -12,6 +13,7 @@ import java.util.List;
 public abstract class PessoaMapper {
     public abstract Pessoa converterParaPessoa(PessoaPostRequest pessoaPostRequest);
     public abstract Pessoa converterParaPessoa(PessoaPutRequest pessoaPutRequest);
+    public abstract Pessoa converterParaPessoa(AtualizaSenhaPessoaRequest atualizaSenhaPessoaRequest);
     public abstract PessoaGetResponse converterParaPessoaGetResponse(Pessoa pessoa);
     public abstract List<PessoaGetResponse> converterParaListaPessoaGetResponse(List<Pessoa> pessoas);
 }

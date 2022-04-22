@@ -15,4 +15,6 @@ public interface PessoaService {
     List<Pessoa> listar();
 
     void deletar(Integer id);
+
+    void atualizarSenha(Pessoa pessoa);
 }

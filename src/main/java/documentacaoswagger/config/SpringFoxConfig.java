@@ -43,6 +43,7 @@ public class SpringFoxConfig {
                 .globalResponses(HttpMethod.GET, obterRespostasInsucessos())
                 .globalResponses(HttpMethod.POST, obterRespostasInsucessos())
                 .globalResponses(HttpMethod.PUT, obterRespostasInsucessos())
+                .globalResponses(HttpMethod.PATCH, obterRespostasInsucessos())
                 .globalResponses(HttpMethod.DELETE, obterRespostasInsucessos());
     }
 

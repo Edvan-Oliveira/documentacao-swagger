@@ -2,6 +2,7 @@ package documentacaoswagger.resource;
 
 import documentacaoswagger.domain.entity.Pessoa;
 import documentacaoswagger.domain.mapper.PessoaMapper;
+import documentacaoswagger.domain.request.AtualizaSenhaPessoaRequest;
 import documentacaoswagger.domain.request.PessoaPostRequest;
 import documentacaoswagger.domain.request.PessoaPutRequest;
 import documentacaoswagger.domain.response.PessoaGetResponse;
@@ -71,5 +72,15 @@ public class PessoaResource {
     @ResponseStatus(NO_CONTENT)
     public void deletar(@PathVariable Integer id) {
         pessoaService.deletar(id);
+    }
+
+    @ApiOperation("Atualizar senha de uma pessoa já cadastrada")
+    @ApiResponses(@ApiResponse(responseCode = "204", description = "Senha atualizada com sucesso"))
+    @PatchMapping(URL_ID)
+    @ResponseStatus(NO_CONTENT)
+    public void atualizarSenha(@PathVariable Integer id,
+                               @RequestBody @Valid AtualizaSenhaPessoaRequest atualizaSenhaPessoaRequest) {
+        atualizaSenhaPessoaRequest.setId(id);
+        pessoaService.atualizarSenha(pessoaMapper.converterParaPessoa(atualizaSenhaPessoaRequest));
     }
 }
